@@ -5,16 +5,20 @@ const container = document.getElementById('root');
 
 function renderApp(){
   console.log('rendering');
-  const currentTime = new Date().toString();
 
-  ReactDOM.render( App(currentTime, "howdy"), container );
+  const appProps = {
+    currentTime: new Date().toString(),
+    greeting: "hola"
+  };
+
+  ReactDOM.render( App(appProps), container );
 }
 
-function App(currentTime, greeting){
+function App(props){
   return (
     <div>
-      <p>{greeting}, world.</p>
-      <p>The time is {currentTime}</p>
+      <p>{props.greeting}, world.</p>
+      <p>The time is {props.currentTime}</p>
     </div>
   );
 }
