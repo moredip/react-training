@@ -6,12 +6,10 @@ const container = document.getElementById('root');
 function renderApp(){
   console.log('rendering');
 
-  const appProps = {
-    currentTime: new Date().toString(),
-    greeting: "hola"
-  };
-
-  ReactDOM.render( App(appProps), container );
+  ReactDOM.render( 
+    <App greeting="Gutentag" currentTime={new Date().toString()}/>,
+    container 
+  );
 }
 
 function App(props){
