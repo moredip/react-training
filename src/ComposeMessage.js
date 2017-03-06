@@ -14,7 +14,13 @@ export default class ComposeMessage extends Component {
   render(){
     return (
       <form className="compose-message" onSubmit={this.handleSubmit}>
-        <input type="text" className="compose-message__input" value={this.state.message} onChange={this.handleInputChange} />
+        <input 
+          type="text" 
+          className="compose-message__input" 
+          value={this.state.message} 
+          onChange={this.handleInputChange} 
+          placeholder="write a message"
+        />
         <input type="submit" value="Send" />
       </form>
     );

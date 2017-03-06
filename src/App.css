@@ -1,8 +1,17 @@
+html, body, h1, ul, li {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+
 html, body {
   width: 100%;
   height: 100%;
-  margin: 0px;
-  padding: 0px;
+}
+
+ul {
+	list-style: none;
 }
 
 #root {
@@ -19,10 +28,29 @@ html, body {
 
 .channel-history {
   flex-grow: 1;
-  background-color: cyan;
+  background-color: rgb(230,230,230);
+  padding: 20px;
+}
+
+.channel-history__title {
+  font-size: 22px;
+  border-bottom: 1px solid gray;
+  margin-bottom: 20px;
+}
+
+.channel-history__message {
+  background-color: white;
+  padding: 5px;
+  margin-bottom: 10px
 }
 
 .compose-message {
-  flex-basis: 100px;
-  background-color: hotpink;
+  display: flex;
+  padding: 10px;
+  background-color: gray;
+}
+
+.compose-message__input {
+  flex-grow: 1;
+  margin-right: 5px;
 }
