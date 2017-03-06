@@ -6,14 +6,17 @@ const container = document.getElementById('root');
 function renderApp(){
   console.log('rendering');
   const currentTime = new Date().toString();
-  const content = (
+
+  ReactDOM.render( App(currentTime, "howdy"), container );
+}
+
+function App(currentTime, greeting){
+  return (
     <div>
-      <p>hello, world.</p>
+      <p>{greeting}, world.</p>
       <p>The time is {currentTime}</p>
     </div>
   );
-
-  ReactDOM.render( content, container );
 }
 
 renderApp();
