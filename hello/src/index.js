@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 const container = document.getElementById('root');
 
 function renderApp(){
+  console.log('rendering');
   const currentTime = new Date().toString();
   const content = (
     <div>
@@ -16,3 +17,5 @@ function renderApp(){
 }
 
 renderApp();
+
+setInterval(renderApp,100);
