@@ -6,10 +6,8 @@ import App from './App';
 const container = document.getElementById('root');
 
 function renderApp(){
-  console.log('rendering');
-
   ReactDOM.render( 
-    <App greeting="Gutentag" currentTime={new Date().toString()}/>,
+    <App greeting="Gutentag" currentTime={new Date()}/>,
     container 
   );
 }
