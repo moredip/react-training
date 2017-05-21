@@ -18,13 +18,13 @@ function Salutation(props){
 }
 
 function ChangeGreetingButton(){
+  function handleChangeButtonClick(event){
+    console.log('I was clicked!');
+  }
+
   return (
     <button onClick={handleChangeButtonClick}>Change greeting</button>
   );
-}
-
-function handleChangeButtonClick(event){
-  console.log('I was clicked!');
 }
 
 const GREETINGS = [
