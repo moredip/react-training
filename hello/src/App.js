@@ -5,9 +5,13 @@ export default function App(){
   return (
     <div>
       <p>{greeting}, world.</p>
-      <button>Change greeting</button>
+      <button onClick={handleChangeButtonClick}>Change greeting</button>
     </div>
   );
+}
+
+function handleChangeButtonClick(event){
+  console.log('I was clicked!');
 }
 
 const GREETINGS = [
