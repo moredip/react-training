@@ -1,12 +1,24 @@
 import React from 'react';
 
 export default function App(){
-  const greeting = randomGreeting();  
   return (
     <div>
-      <p>{greeting}, world.</p>
-      <button onClick={handleChangeButtonClick}>Change greeting</button>
+      <Salutation/>
+      <ChangeGreetingButton/>
     </div>
+  );
+}
+
+function Salutation(){
+  const greeting = randomGreeting();  
+  return (
+    <p>{greeting}, world.</p>
+  );
+}
+
+function ChangeGreetingButton(){
+  return (
+    <button onClick={handleChangeButtonClick}>Change greeting</button>
   );
 }
 
