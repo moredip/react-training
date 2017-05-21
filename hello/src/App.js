@@ -1,18 +1,19 @@
 import React from 'react';
 
 export default function App(){
+  const greeting = randomGreeting();  
+
   return (
     <div>
-      <Salutation/>
+      <Salutation greeting={greeting}/>
       <ChangeGreetingButton/>
     </div>
   );
 }
 
-function Salutation(){
-  const greeting = randomGreeting();  
+function Salutation(props){
   return (
-    <p>{greeting}, world.</p>
+    <p>{props.greeting}, world.</p>
   );
 }
 
