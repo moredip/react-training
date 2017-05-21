@@ -5,6 +5,7 @@ export default function App(){
   return (
     <div>
       <p>{greeting}, world.</p>
+      <button>Change greeting</button>
     </div>
   );
 }
