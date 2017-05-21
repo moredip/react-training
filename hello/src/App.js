@@ -12,9 +12,13 @@ export default class App extends React.Component {
     return (
       <div>
         <Salutation greeting={this.state.greeting}/>
-        <ChangeGreetingButton/>
+        <ChangeGreetingButton onChangeGreeting={this.changeGreeting}/>
       </div>
     );
+  }
+
+  changeGreeting(){
+    console.log('I was clicked!');
   }
 }
 
@@ -25,13 +29,9 @@ function Salutation(props){
   );
 }
 
-function ChangeGreetingButton(){
-  function handleChangeButtonClick(event){
-    console.log('I was clicked!');
-  }
-
+function ChangeGreetingButton(props){
   return (
-    <button onClick={handleChangeButtonClick}>Change greeting</button>
+    <button onClick={props.onChangeGreeting}>Change greeting</button>
   );
 }
 
