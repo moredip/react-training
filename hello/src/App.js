@@ -1,12 +1,17 @@
 import React from 'react';
 
 export default class App extends React.Component {
-  render(){
-    const greeting = randomGreeting();  
+  constructor(){
+    super();
+    this.state = {
+      greeting: randomGreeting()
+    };
+  }
 
+  render(){
     return (
       <div>
-        <Salutation greeting={greeting}/>
+        <Salutation greeting={this.state.greeting}/>
         <ChangeGreetingButton/>
       </div>
     );
