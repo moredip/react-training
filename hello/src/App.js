@@ -1,15 +1,18 @@
 import React from 'react';
 
-export default function App(){
-  const greeting = randomGreeting();  
+export default class App extends React.Component {
+  render(){
+    const greeting = randomGreeting();  
 
-  return (
-    <div>
-      <Salutation greeting={greeting}/>
-      <ChangeGreetingButton/>
-    </div>
-  );
+    return (
+      <div>
+        <Salutation greeting={greeting}/>
+        <ChangeGreetingButton/>
+      </div>
+    );
+  }
 }
+
 
 function Salutation(props){
   return (
