@@ -6,6 +6,8 @@ export default class App extends React.Component {
     this.state = {
       greeting: randomGreeting()
     };
+
+    this.changeGreeting = this.changeGreeting.bind(this);
   }
 
   render(){
@@ -18,7 +20,9 @@ export default class App extends React.Component {
   }
 
   changeGreeting(){
-    console.log('I was clicked!');
+    this.setState({
+      greeting: randomGreeting()
+    });
   }
 }
 
