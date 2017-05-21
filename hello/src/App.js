@@ -1,10 +1,22 @@
 import React from 'react';
 
-export default function App(props){
+export default function App(){
+  const greeting = randomGreeting();  
   return (
     <div>
-      <p>{props.greeting}, world.</p>
-      <p>The time is {props.currentTime}</p>
+      <p>{greeting}, world.</p>
     </div>
   );
+}
+
+const GREETINGS = [
+  'Hello',
+  'Hola',
+  'Hi',
+  'Greetz',
+  'Gutentag'
+];
+
+function randomGreeting(){
+  return GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
 }
