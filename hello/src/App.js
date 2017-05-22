@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Salutation from './Salutation';
+import ChangeGreetingButton from './ChangeGreetingButton';
+
 export default class App extends React.Component {
   constructor(){
     super();
@@ -24,19 +27,6 @@ export default class App extends React.Component {
       greeting: randomGreeting()
     });
   }
-}
-
-
-function Salutation(props){
-  return (
-    <p>{props.greeting}, world.</p>
-  );
-}
-
-function ChangeGreetingButton(props){
-  return (
-    <button onClick={props.onChangeGreeting}>Change greeting</button>
-  );
 }
 
 const GREETINGS = [
