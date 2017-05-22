@@ -4,10 +4,11 @@ import Salutation from './Salutation';
 import ChangeGreetingButton from './ChangeGreetingButton';
 
 export default class App extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+
     this.state = {
-      greeting: randomGreeting()
+      greeting: this.nextGreeting()
     };
 
     this.changeGreeting = this.changeGreeting.bind(this);
@@ -24,10 +25,18 @@ export default class App extends React.Component {
 
   changeGreeting(){
     this.setState({
-      greeting: randomGreeting()
+      greeting: this.nextGreeting()
     });
   }
+
+  nextGreeting(){
+    return this.props.nextGreeting();
+  }
 }
+
+App.defaultProps = {
+  nextGreeting: randomGreeting
+};
 
 const GREETINGS = [
   'Hello',
