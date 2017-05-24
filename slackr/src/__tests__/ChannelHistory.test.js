@@ -9,15 +9,19 @@ describe('ChannelHistory', function () {
     expect(component.find('.channel-history__title')).toHaveText('Messages');
   });
 
-  it('shows the last message', function () {
-    const component = shallow(<ChannelHistory lastMessage="the last message" />);
-    expect(component.find('.channel-history__message'))
-      .toHaveText('the last message');
+  it('shows the message history', function () {
+    const messages = ['first message','second message'];
+    const component = shallow(<ChannelHistory messages={messages}/>);
+
+    const messageElements = component.find('.channel-history__message')
+    expect(messageElements.length).toEqual(2);
+    expect(messageElements.at(0)).toHaveText('first message');
+    expect(messageElements.at(1)).toHaveText('second message');
   });
 
-  it('hides the message area when there is no last message', function () {
-    const component = shallow(<ChannelHistory lastMessage={null}/>);
-    expect(component.find('.channel-history__message'))
+  it('hides the entire message area when there are no messages', function () {
+    const component = shallow(<ChannelHistory messages={null}/>);
+    expect(component.find('.channel-history__message-list'))
       .not.toBePresent();
   });
 });

@@ -7,7 +7,7 @@ describe('App', function () {
   it('starts off with no last message in history', function () {
     const component = shallow(<App/>);
     const channelHistory = component.find('ChannelHistory');
-    expect(channelHistory).toHaveProp('lastMessage',null);
+    expect(channelHistory).toHaveProp('messages',[]);
   });
 
   it('updates history with new last message when one is composed', function () {
@@ -18,7 +18,7 @@ describe('App', function () {
 
     const channelHistory = component.find('ChannelHistory');
 
-    expect(channelHistory).toHaveProp('lastMessage','a new message');
+    expect(channelHistory).toHaveProp('messages',['a new message']);
   });
 
   xit('overwrites the previous last message');

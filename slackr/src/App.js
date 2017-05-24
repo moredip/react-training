@@ -8,7 +8,7 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      lastMessage: null
+      messages: []
     };
 
     this.handleNewMessage = this.handleNewMessage.bind(this);
@@ -17,7 +17,7 @@ export default class App extends Component {
   render(){
     return (
       <div className="app-layout">
-        <ChannelHistory lastMessage={this.state.lastMessage}/> 
+        <ChannelHistory messages={this.state.messages}/> 
         <ComposeMessage onMessage={this.handleNewMessage}/> 
       </div>
     );
@@ -34,7 +34,7 @@ export default class App extends Component {
 
 function addMessageToState(state,newMessage){
   return {
-    lastMessage: newMessage
+    messages: state.messages.concat([newMessage])
   };
 }
 
