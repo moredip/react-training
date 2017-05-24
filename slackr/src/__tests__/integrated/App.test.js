@@ -18,6 +18,6 @@ describe('App', function () {
 
     const messagesInChannelHistory = app.find('.channel-history__message');
     expect(messagesInChannelHistory).not.toBeEmpty();
-    expect(messagesInChannelHistory.first()).toHaveText('beep boop I am a robot');
+    expect(messagesInChannelHistory).toHaveText('beep boop I am a robot');
   });
 });
