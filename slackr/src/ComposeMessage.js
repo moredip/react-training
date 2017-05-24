@@ -21,7 +21,11 @@ export default class ComposeMessage extends Component {
           onChange={this.handleInputChange} 
           placeholder="write a message"
         />
-        <input type="submit" value="Send" />
+        <input 
+          type="submit" 
+          className="compose-message__submit" 
+          value="Send" 
+        />
       </form>
     );
   }
