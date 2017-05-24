@@ -4,20 +4,53 @@ import { mount } from 'enzyme';
 import App from '../../App';
 
 describe('App', function () {
+  let app;
+
+  beforeEach( function(){
+    app = mount(<App/>);
+  });
+
   test('initially has an empty channel history', function () {
-    const app = mount(<App/>);
-    const messagesInChannelHistory = app.find('.channel-history__message');
-    expect(messagesInChannelHistory).toBeEmpty();
+    expect(messagesInChannelHistory()).toEqual([]);
   });
 
   test('after sending a message, it appears in the channel history', function () {
-    const app = mount(<App/>);
+    inputIntoComposeMessage('beep boop I am a robot');
+    submitComposedMessage();
 
-    app.find('.compose-message__input').simulate('change',{ target: {value: 'beep boop I am a robot'} });
-    app.find(".compose-message__submit").simulate('submit');
-
-    const messagesInChannelHistory = app.find('.channel-history__message');
-    expect(messagesInChannelHistory).not.toBeEmpty();
-    expect(messagesInChannelHistory).toHaveText('beep boop I am a robot');
+    const messages = messagesInChannelHistory();
+    expect(messages).toEqual(['beep boop I am a robot']);
   });
+
+  test('after sending two messages, the both appear in the channel history', function () {
+    inputIntoComposeMessage('this is the first message');
+    submitComposedMessage();
+
+    inputIntoComposeMessage('this is the second message');
+    submitComposedMessage();
+
+    const messages = messagesInChannelHistory();
+    expect(messages).toEqual([
+      'this is the first message',
+      'this is the second message'
+    ]);
+  });
+
+  function inputIntoComposeMessage(text){
+    app
+      .find('.compose-message__input')
+      .simulate('change',{ target: {value:text} });
+  }
+
+  function submitComposedMessage(){
+    app
+      .find(".compose-message__submit")
+      .simulate('submit');
+  }
+
+  function messagesInChannelHistory(){
+    return app
+      .find('.channel-history__message')
+      .map( (message)=> message.text() );
+  }
 });
