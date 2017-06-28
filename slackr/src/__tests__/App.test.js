@@ -6,34 +6,23 @@ import deepEqualIdent from 'deep-equal-ident';
 import App from '../App';
 
 describe('App', function () {
-  it('starts off with no last message in history', function () {
-    const component = shallow(<App/>);
-    const channelHistory = component.find('ChannelHistory');
-    expect(channelHistory).toHaveProp('messages',[]);
-  });
-
   it('updates history with new messages as they are composed', function () {
     const component = shallow(<App/>);
     const composeMessage = component.find('ComposeMessage');
+    const channelHistory = component.find('ChannelHistory');
 
-    expect(component.state('messages')).toEqual([]);
+    // need to "re-find" ChannelHistory each time
+    expect(component.find('ChannelHistory')).toHaveProp('messages',[]);
 
     composeMessage.prop('onMessage')('a new message');
 
-    expect(component.state('messages')).toEqual([
+    expect(component.find('ChannelHistory')).toHaveProp('messages',[
       'a new message'
     ]);
 
     composeMessage.prop('onMessage')('another message');
 
-    expect(component.state('messages')).toEqual([
-      'a new message',
-      'another message'
-    ]);
-
-    const channelHistory = component.find('ChannelHistory');
-
-    expect(channelHistory.prop('messages')).toEqual([
+    expect(component.find('ChannelHistory')).toHaveProp('messages',[
       'a new message',
       'another message',
     ]);
