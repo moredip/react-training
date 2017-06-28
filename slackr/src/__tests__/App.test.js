@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import deepEqualIdent from 'deep-equal-ident';
+
 import App from '../App';
 
 describe('App', function () {
@@ -10,17 +12,30 @@ describe('App', function () {
     expect(channelHistory).toHaveProp('messages',[]);
   });
 
-  it('updates history with new last message when one is composed', function () {
+  it('updates history with new messages as they are composed', function () {
     const component = shallow(<App/>);
     const composeMessage = component.find('ComposeMessage');
 
+    expect(component.state('messages')).toEqual([]);
+
     composeMessage.prop('onMessage')('a new message');
+
+    expect(component.state('messages')).toEqual([
+      'a new message'
+    ]);
+
+    composeMessage.prop('onMessage')('another message');
+
+    expect(component.state('messages')).toEqual([
+      'a new message',
+      'another message'
+    ]);
 
     const channelHistory = component.find('ChannelHistory');
 
-    expect(channelHistory).toHaveProp('messages',['a new message']);
+    expect(channelHistory.prop('messages')).toEqual([
+      'a new message',
+      'another message',
+    ]);
   });
-
-  xit('overwrites the previous last message');
-
 });
