@@ -14,7 +14,9 @@ describe('ComposeMessage', function () {
     expect(textInput()).toHaveValue('');
   });
 
-  xit('has a "write a message" placeholder');
+  it('has a "write a message" placeholder', function () {
+    expect(textInput()).toHaveProp('placeholder','write a message');
+  });
 
   it('does not call handler when input changes but has not been submitted', function () {
     const spyHandler = jest.fn();
