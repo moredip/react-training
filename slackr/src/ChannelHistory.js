@@ -1,6 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default function ChannelHistory(props){
+function mapStateToProps(state){
+  return {
+    messages: state.channel.messages
+  };
+}
+
+const mapDispatchToProps = undefined;
+
+function ChannelHistory(props){
   return (
     <div className="channel-history">
       <h1 className="channel-history__title">Messages</h1>
@@ -24,3 +33,5 @@ function renderMessagesSection(messages){
     </ul>
   );
 }
+
+export default connect(mapStateToProps,mapDispatchToProps)(ChannelHistory);
