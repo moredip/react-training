@@ -9,7 +9,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = undefined;
 
-function ChannelHistory(props){
+export function ChannelHistory(props){
   return (
     <div className="channel-history">
       <h1 className="channel-history__title">Messages</h1>

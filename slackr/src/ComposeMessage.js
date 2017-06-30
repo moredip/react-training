@@ -8,7 +8,7 @@ const mapDispatchToProps = {
   onMessage: postMessage
 };
 
-class ComposeMessage extends Component {
+export class ComposeMessage extends Component {
   constructor(props){
     super(props);
     this.state = {

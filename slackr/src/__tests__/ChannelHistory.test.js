@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ChannelHistory from '../ChannelHistory';
+import {ChannelHistory} from '../ChannelHistory';
 
 describe('ChannelHistory', function () {
   it('has a Messages title', function () {

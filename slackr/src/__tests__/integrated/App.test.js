@@ -1,13 +1,12 @@
-import React from 'react';
 import { mount } from 'enzyme';
 
-import App from '../../App';
+import boot from '../../boot'
 
 describe('App', function () {
   let app;
 
   beforeEach( function(){
-    app = mount(<App/>);
+    app = mount(boot());
   });
 
   test('initially has an empty channel history', function () {

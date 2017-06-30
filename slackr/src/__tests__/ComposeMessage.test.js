@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ComposeMessage from '../ComposeMessage';
+import {ComposeMessage} from '../ComposeMessage';
 
 describe('ComposeMessage', function () {
   let component;
