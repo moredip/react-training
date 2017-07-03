@@ -9,29 +9,11 @@ const mapDispatchToProps = {
   onMessage: postMessage
 };
  
-const ComposeMessage = stateful(
+export const ComposeMessage = stateful(
   {
-    displayName: 'ComposeMessage',
     initialState: { message: '' }
   },
-  function ({props,state,setState}) {
-    function handleInputChange(event){
-      const message = event.target.value;
-      setState({message});
-    }
-
-    function handleSubmit(event){
-      event.preventDefault();
-
-      if( props.onMessage ){
-        props.onMessage(state.message);
-      }
-
-      setState({
-        message:''
-      });
-    }
-
+  function ComposeMessage({props,state,setState}) {
     return (
       <form className="compose-message" onSubmit={handleSubmit}>
         <input 
@@ -48,6 +30,23 @@ const ComposeMessage = stateful(
         />
       </form>
     );
+
+    function handleInputChange(event){
+      const message = event.target.value;
+      setState({message});
+    }
+
+    function handleSubmit(event){
+      event.preventDefault();
+
+      if( props.onMessage ){
+        props.onMessage(state.message);
+      }
+
+      setState({
+        message:''
+      });
+    }
   }
 );
 

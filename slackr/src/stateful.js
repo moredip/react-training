@@ -1,6 +1,6 @@
 import {Component} from 'react';
 
-export default function stateful({initialState,displayName},statelessRenderFn){
+export default function stateful({initialState},statelessRenderFn){
   // TODO: context
 
   let comp = class extends Component {
@@ -18,6 +18,6 @@ export default function stateful({initialState,displayName},statelessRenderFn){
     }
   };
 
-  comp.displayName = displayName;
+  comp.displayName = statelessRenderFn.name;
   return comp;
 }
