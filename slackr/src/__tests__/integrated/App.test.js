@@ -49,7 +49,7 @@ describe('App', function () {
 
   function messagesInChannelHistory(){
     return app
-      .find('.channel-history__message')
+      .find('.channel-history__message-text')
       .map( (message)=> message.text() );
   }
 });

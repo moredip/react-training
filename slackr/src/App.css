@@ -44,6 +44,15 @@ ul {
   margin-bottom: 10px
 }
 
+.channel-history__message-star {
+  margin-left: 5px;
+  color: rgb(230, 230, 230);
+  cursor: pointer;
+}
+.channel-history__message-star:hover {
+  color: rgb(160, 160, 160);
+}
+
 .compose-message {
   display: flex;
   padding: 10px;

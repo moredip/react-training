@@ -18,10 +18,13 @@ describe('channel duck', () => {
       channelActions.postMessage('another message')
     );
 
-    expect(stateAfterFirstMessage).toHaveProperty('messages',[
+    expect(stateAfterFirstMessage).toHaveProperty('messages');
+    expect(extractMessageTextFromMessages(stateAfterFirstMessage.messages)).toEqual([
       'my first message'
     ]);
-    expect(stateAfterSecondMessage).toHaveProperty('messages',[
+
+    expect(stateAfterSecondMessage).toHaveProperty('messages');
+    expect(extractMessageTextFromMessages(stateAfterSecondMessage.messages)).toEqual([
       'my first message',
       'another message'
     ]);
@@ -34,7 +37,7 @@ describe('channel duck', () => {
       channelActions.postMessage('my first message')
     );
 
-    expect(store.getState()).toHaveProperty('messages',[
+    expect(extractMessageTextFromMessages(store.getState().messages)).toEqual([
       'my first message'
     ]);
 
@@ -42,9 +45,13 @@ describe('channel duck', () => {
       channelActions.postMessage('the next message')
     );
 
-    expect(store.getState()).toHaveProperty('messages',[
+    expect(extractMessageTextFromMessages(store.getState().messages)).toEqual([
       'my first message',
       'the next message'
     ]);
   });
 });
+
+function extractMessageTextFromMessages(messages){
+  return messages.map( (message)=> message.getText() );
+}

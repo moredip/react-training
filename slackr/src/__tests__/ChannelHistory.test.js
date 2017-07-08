@@ -13,10 +13,10 @@ describe('ChannelHistory', function () {
     const messages = ['first message','second message'];
     const component = shallow(<ChannelHistory messages={messages}/>);
 
-    const messageElements = component.find('.channel-history__message')
+    const messageElements = component.find('ChannelMessage')
     expect(messageElements.length).toEqual(2);
-    expect(messageElements.at(0)).toHaveText('first message');
-    expect(messageElements.at(1)).toHaveText('second message');
+    expect(messageElements.at(0)).toHaveProp('message','first message');
+    expect(messageElements.at(1)).toHaveProp('message','second message');
   });
 
   it('hides the entire message area when there are no messages', function () {
