@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Salutation from '../Salutation';
+import {Salutation} from '../Salutation';
 
 describe('Salutation', function () {
   it('contains the correct salutation', function () {

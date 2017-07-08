@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ChangeGreetingButton from '../ChangeGreetingButton';
+import {ChangeGreetingButton} from '../ChangeGreetingButton';
 
 describe('ChangeGreetingButton', function () {
   it('contains a <button>', function () {
