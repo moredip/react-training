@@ -1,6 +1,6 @@
 import {createStore} from 'redux';
 import channelReducer, * as channelActions from '../channel';
-import {getMessageText,getMessageStarState} from '../../message';
+import {getMessageText,getMessageStarState,getMessageId} from '../../message';
 
 describe('channel duck', () => {
 
@@ -56,7 +56,7 @@ describe('channel duck', () => {
   });
 
   describe('starring messages', () => {
-    it('is initially unstarred', () => {
+    it('is initially unstarred and then becomes starred', () => {
       const store = createStore(channelReducer);
 
       store.dispatch(
@@ -68,9 +68,14 @@ describe('channel duck', () => {
       expect(getMessageStarState(ourMessage)).toBe('unstarred');
 
       store.dispatch(
-        channelActions.starMessage(ourMessage)
+        channelActions.starMessage(getMessageId(ourMessage))
       );
+
+      const ourMessageAfterStarring = store.getState().messages[0];
+
+      expect(getMessageStarState(ourMessageAfterStarring)).toBe('starred');
     });
+
   });
 });
 

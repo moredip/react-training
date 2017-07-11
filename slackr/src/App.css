@@ -52,6 +52,9 @@ ul {
 .channel-history__message-star:hover {
   color: rgb(160, 160, 160);
 }
+.channel-history__message-star.-starred {
+  color: rgb(255, 197, 66);
+}
 
 .compose-message {
   display: flex;
