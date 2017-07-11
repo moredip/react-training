@@ -1,5 +1,6 @@
 import {createStore} from 'redux';
 import channelReducer, * as channelActions from '../channel';
+import {getMessageText,getMessageStarState} from '../../message';
 
 describe('channel duck', () => {
 
@@ -64,7 +65,7 @@ describe('channel duck', () => {
 
       const ourMessage = store.getState().messages[0];
 
-      expect(ourMessage.getStarState()).toBe('unstarred');
+      expect(getMessageStarState(ourMessage)).toBe('unstarred');
 
       store.dispatch(
         channelActions.starMessage(ourMessage)
@@ -74,5 +75,5 @@ describe('channel duck', () => {
 });
 
 function extractMessageTextFromMessages(messages){
-  return messages.map( (message)=> message.getText() );
+  return messages.map(getMessageText);
 }

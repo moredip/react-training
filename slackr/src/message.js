@@ -1,17 +1,16 @@
 const uuid = require('uuid/v4');
 
-export default function createMessage(text){
+
+export function createMessage(text){
   const id = uuid();
 
-  return {
-    getId(){
-      return id;
-    },
-    getText(){
-      return text;
-    },
-    getStarState(){
-      return 'unstarred';
-    }
-  };
+  return { id, text };
+}
+
+export function getMessageText(message){
+  return message.text;
+}
+
+export function getMessageStarState(message){
+  return 'unstarred';
 }

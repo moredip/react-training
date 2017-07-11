@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ChannelMessage from '../ChannelMessage.js';
-import createMessage from '../message.js';
+import {createMessage} from '../message.js';
 
 describe('ChannelMessage', () => {
   it('shows the message text', () => {
