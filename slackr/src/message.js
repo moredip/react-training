@@ -10,8 +10,8 @@ export default function createMessage(text){
     getText(){
       return text;
     },
-    isStarred(){
-      return false;
+    getStarState(){
+      return 'unstarred';
     }
   };
 }

@@ -28,3 +28,10 @@ export function postMessage(text){
     text: text
   };
 }
+
+export function starMessage(message){
+  return {
+    type: STAR_MESSAGE,
+    messageUid: message.getId()
+  };
+}
