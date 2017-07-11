@@ -3,8 +3,13 @@ const uuid = require('uuid/v4');
 
 export function createMessage(text){
   const id = uuid();
+  const starState = 'unstarred';
 
-  return { id, text };
+  return { id, text, starState };
+}
+
+export function getMessageId(message){
+  return message.id;
 }
 
 export function getMessageText(message){
@@ -12,5 +17,13 @@ export function getMessageText(message){
 }
 
 export function getMessageStarState(message){
-  return 'unstarred';
+  return message.starState;
+}
+
+export function starMessage(message){
+  return Object.assign(
+    {},
+    message,
+    {starState:'starred'}
+  );
 }

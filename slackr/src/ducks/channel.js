@@ -1,4 +1,4 @@
-import {createMessage,getMessageId} from '../message';
+import {createMessage} from '../message';
 
 const POST_MESSAGE = 'slackr/channel/POST_MESSAGE';
 const STAR_MESSAGE = 'slackr/channel/STAR_MESSAGE';
@@ -29,9 +29,9 @@ export function postMessage(text){
   };
 }
 
-export function starMessage(message){
+export function starMessage(messageId){
   return {
     type: STAR_MESSAGE,
-    //messageUid: getMessageId(message)
+    messageId: messageId
   };
 }
