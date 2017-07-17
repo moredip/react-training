@@ -1,6 +1,9 @@
 import React from 'react';
 
 import randomGreeting from './randomGreeting';
+import Salutation from './Salutation';
+import AddGreetingButton from './AddGreetingButton';
+import ClearGreetingsButton from './ClearGreetingsButton';
 
 export default class App extends React.Component {
   constructor(props){
@@ -39,22 +42,4 @@ export default class App extends React.Component {
       greetings: []
     });
   }
-}
-
-function AddGreetingButton(props){
-  return (
-    <button onClick={props.onAddGreeting}>Add Greeting</button>
-  );
-}
-
-function ClearGreetingsButton(props){
-  return (
-    <button onClick={props.onClearGreetings}>Clear Greetings</button>
-  );
-}
-
-function Salutation(props){
-  return (
-    <p>{props.greeting}, world</p>
-  );
 }
