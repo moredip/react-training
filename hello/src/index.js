@@ -1,19 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import randomGreeting from './randomGreeting';
+
 const container = document.getElementById('root');
-
-const GREETINGS = [
-  'Hello',
-  'Hola',
-  'Hi',
-  'Greetz',
-  'Gutentag'
-];
-
-function randomGreeting(){
-  return GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
-}
 
 function renderApp(){
   const greeting = randomGreeting();
