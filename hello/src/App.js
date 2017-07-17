@@ -5,7 +5,10 @@ import randomGreeting from './randomGreeting';
 export default function App(props){
   const greeting = randomGreeting();
   return (
-    <Salutation greeting={greeting}/>
+    <div>
+      <Salutation greeting={greeting}/>
+      <button>Add Greeting</button>
+    </div>
   );
 }
 
