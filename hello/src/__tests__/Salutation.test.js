@@ -8,4 +8,9 @@ describe('Salutation', () => {
     const component = shallow(<Salutation greeting="bonjour"/>);
     expect(component).toHaveText('bonjour, world');
   });
+
+  it('defaults to a Hello, world salutation', () => {
+    const component = shallow(<Salutation/>);
+    expect(component).toHaveText('Hello, world');
+  });
 });
