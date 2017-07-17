@@ -3,7 +3,24 @@ import ReactDOM from 'react-dom';
 
 const container = document.getElementById('root');
 
-ReactDOM.render(
-  <p>hello, world</p>,
-  container
-);
+const GREETINGS = [
+  'Hello',
+  'Hola',
+  'Hi',
+  'Greetz',
+  'Gutentag'
+];
+
+function randomGreeting(){
+  return GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
+}
+
+function renderApp(){
+  const greeting = randomGreeting();
+  ReactDOM.render(
+    <p>{greeting}, world</p>,
+    container
+  );
+}
+
+renderApp();
