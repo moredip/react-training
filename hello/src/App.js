@@ -21,6 +21,7 @@ export default class App extends React.Component {
       <div>
         <AddGreetingButton onAddGreeting={this.addNewGreeting}/>
         {greetings}
+        <p>({this.state.greetings.length} greetings)</p>
       </div>
     );
   }
