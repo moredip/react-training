@@ -10,13 +10,10 @@ describe('AddGreetingButton', () => {
   });
 
   it('triggers handler when button is clicked', () => {
-    let handlerWasClicked = false;
-    function handler(){
-      handlerWasClicked = true;
-    }
+    const spyHandler = jest.fn();
 
-    const component = shallow(<AddGreetingButton onAddGreeting={handler}/>);
+    const component = shallow(<AddGreetingButton onAddGreeting={spyHandler}/>);
     component.find('button').simulate('click');
-    expect( handlerWasClicked ).toBe(true);
+    expect( spyHandler ).toHaveBeenCalled();
   });
 });
