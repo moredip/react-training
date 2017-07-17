@@ -6,21 +6,30 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      greeting: randomGreeting()
+      greetings: []
     };
+
+    this.addNewGreeting = this.addNewGreeting.bind(this);
   }
 
   render(){
+    const greetings = this.state.greetings.map(function (greeting){
+      return <Salutation greeting={greeting}/>;
+    });
+
     return (
       <div>
-        <Salutation greeting={this.state.greeting}/>
         <AddGreetingButton onAddGreeting={this.addNewGreeting}/>
+        {greetings}
       </div>
     );
   }
 
   addNewGreeting(){
-    console.log('adding a new greeting...');
+    const newGreeting = randomGreeting();
+    this.setState({
+      greetings: this.state.greetings.concat([newGreeting])
+    });
   }
 }
 
