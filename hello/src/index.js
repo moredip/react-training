@@ -1,22 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import randomGreeting from './randomGreeting';
+import App from './App';
 
 const container = document.getElementById('root');
 
 function renderApp(){
-  const greeting = randomGreeting();
   ReactDOM.render(
-    <Salutation greeting={greeting}/>,
+    <App/>,
     container
   );
 }
 
 renderApp();
-
-function Salutation(props){
-  return (
-    <p>{props.greeting}, world</p>
-  );
-}
