@@ -10,6 +10,7 @@ export default class App extends React.Component {
     };
 
     this.addNewGreeting = this.addNewGreeting.bind(this);
+    this.clearAllGreetings = this.clearAllGreetings.bind(this);
   }
 
   render(){
@@ -20,6 +21,7 @@ export default class App extends React.Component {
     return (
       <div>
         <AddGreetingButton onAddGreeting={this.addNewGreeting}/>
+        <ClearGreetingsButton onClearGreetings={this.clearAllGreetings}/>
         {greetings}
       </div>
     );
@@ -31,11 +33,23 @@ export default class App extends React.Component {
       greetings: this.state.greetings.concat([newGreeting])
     });
   }
+
+  clearAllGreetings(){
+    this.setState({
+      greetings: []
+    });
+  }
 }
 
 function AddGreetingButton(props){
   return (
     <button onClick={props.onAddGreeting}>Add Greeting</button>
+  );
+}
+
+function ClearGreetingsButton(props){
+  return (
+    <button onClick={props.onClearGreetings}>Clear Greetings</button>
   );
 }
 
