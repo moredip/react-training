@@ -2,18 +2,26 @@ import React from 'react';
 
 import randomGreeting from './randomGreeting';
 
-export default function App(props){
-  const greeting = randomGreeting();
-  return (
-    <div>
-      <Salutation greeting={greeting}/>
-      <button onClick={handleButtonClick}>Add Greeting</button>
-    </div>
-  );
+export default class App extends React.Component {
+  render(){
+    const greeting = randomGreeting();
+    return (
+      <div>
+        <Salutation greeting={greeting}/>
+        <AddGreetingButton/>
+      </div>
+    );
+  }
 }
 
-function handleButtonClick(){
-  window.alert('button was clicked!');
+function AddGreetingButton(props){
+  return (
+    <button onClick={handleButtonClick}>Add Greeting</button>
+  );
+
+  function handleButtonClick(){
+    window.alert('button was clicked!');
+  }
 }
 
 function Salutation(props){
