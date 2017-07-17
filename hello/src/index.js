@@ -8,9 +8,15 @@ const container = document.getElementById('root');
 function renderApp(){
   const greeting = randomGreeting();
   ReactDOM.render(
-    <p>{greeting}, world</p>,
+    <Salutation greeting={greeting}/>,
     container
   );
 }
 
 renderApp();
+
+function Salutation(props){
+  return (
+    <p>{props.greeting}, world</p>
+  );
+}
