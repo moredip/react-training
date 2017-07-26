@@ -11,9 +11,15 @@ describe('message', () => {
     expect(msg.getMessageStarState(message)).toEqual('unstarred');
   });
 
+  it('can become starring', () => {
+    const message = msg.createMessage('blah');
+    const starredMessage = msg.startStarring(message);
+    expect(msg.getMessageStarState(starredMessage)).toEqual('starring');
+  });
+
   it('can become starred', () => {
     const message = msg.createMessage('blah');
-    const starredMessage = msg.starMessage(message);
+    const starredMessage = msg.completeStarring(message);
     expect(msg.getMessageStarState(starredMessage)).toEqual('starred');
   });
 });

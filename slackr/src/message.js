@@ -20,10 +20,18 @@ export function getMessageStarState(message){
   return message.starState;
 }
 
-export function starMessage(message){
+export function completeStarring(message){
+  return changeStarState(message,'starred');
+}
+
+export function startStarring(message){
+  return changeStarState(message,'starring');
+}
+
+function changeStarState(message,newState){
   return Object.assign(
     {},
     message,
-    {starState:'starred'}
+    {starState:newState}
   );
 }

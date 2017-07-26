@@ -1,41 +1,22 @@
-import {createStore} from 'redux';
-import channelReducer, * as channelActions from '../channel';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+import reducer, * as channelActions from '../channel';
 import {getMessageText,getMessageStarState,getMessageId} from '../../message';
 
 describe('channel duck', () => {
+  let store = undefined;
+
+  beforeEach( () => {
+    store = createConfiguredStore();
+  });
 
   describe('posting messages', () => {
     it('starts off with an empty list of messages', () => {
-      const store = createStore(channelReducer);
       expect(store.getState()).toHaveProperty('messages',[]);
     });
 
     it('accumulates messages', () => {
-      const stateAfterFirstMessage = channelReducer(
-        undefined,
-        channelActions.postMessage('my first message')
-      );
-
-      const stateAfterSecondMessage = channelReducer(
-        stateAfterFirstMessage,
-        channelActions.postMessage('another message')
-      );
-
-      expect(stateAfterFirstMessage).toHaveProperty('messages');
-      expect(extractMessageTextFromMessages(stateAfterFirstMessage.messages)).toEqual([
-        'my first message'
-      ]);
-
-      expect(stateAfterSecondMessage).toHaveProperty('messages');
-      expect(extractMessageTextFromMessages(stateAfterSecondMessage.messages)).toEqual([
-        'my first message',
-        'another message'
-      ]);
-    });
-
-    it('accumulates messages [using store]', () => {
-      const store = createStore(channelReducer);
-
       store.dispatch(
         channelActions.postMessage('my first message')
       );
@@ -56,28 +37,55 @@ describe('channel duck', () => {
   });
 
   describe('starring messages', () => {
-    it('is initially unstarred and then becomes starred', () => {
-      const store = createStore(channelReducer);
+    it('triggers an async starring operation', () => {
+      const fakeBackend = {
+        starMessage: jest.fn()
+      };
+      fakeBackend.starMessage.mockReturnValue(Promise.resolve(true));
 
       store.dispatch(
         channelActions.postMessage('a message')
       );
-
       const ourMessage = store.getState().messages[0];
 
-      expect(getMessageStarState(ourMessage)).toBe('unstarred');
-
       store.dispatch(
-        channelActions.starMessage(getMessageId(ourMessage))
+        channelActions.starMessage(getMessageId(ourMessage),{backendServer:fakeBackend})
       );
 
-      const ourMessageAfterStarring = store.getState().messages[0];
-
-      expect(getMessageStarState(ourMessageAfterStarring)).toBe('starred');
+      expect(fakeBackend.starMessage).toHaveBeenCalledWith(getMessageId(ourMessage));
     });
 
+    it('updates a message as STARRING when async starring starts, and STARRED once the operation succeeds', () => {
+      const fakeBackend = {
+        starMessage(){ return Promise.resolve(true); }
+      };
+
+      store.dispatch(
+        channelActions.postMessage('a message')
+      );
+      const ourMessage = store.getState().messages[0];
+
+      const asyncDispatch = store.dispatch(
+        channelActions.starMessage(getMessageId(ourMessage),{backendServer:fakeBackend})
+      );
+
+      const ourMessageAfterStarringStarts = store.getState().messages[0];
+      expect(getMessageStarState(ourMessageAfterStarringStarts)).toBe('starring');
+
+      return asyncDispatch.then(function () {
+        const ourMessageAfterStarringSucceeds = store.getState().messages[0];
+        expect(getMessageStarState(ourMessageAfterStarringSucceeds)).toBe('starred');
+      });
+    });
   });
 });
+
+function createConfiguredStore(){
+  return createStore(
+    reducer,
+    applyMiddleware(thunk)
+  );
+}
 
 function extractMessageTextFromMessages(messages){
   return messages.map(getMessageText);

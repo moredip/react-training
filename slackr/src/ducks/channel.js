@@ -1,7 +1,9 @@
 import * as msg from '../message';
+import * as _backendServer from '../backendServer';
 
 const POST_MESSAGE = 'slackr/channel/POST_MESSAGE';
-const STAR_MESSAGE = 'slackr/channel/STAR_MESSAGE';
+const STARRING_MESSAGE = 'slackr/channel/STARRING_MESSAGE';
+const STARRED_MESSAGE = 'slackr/channel/STARRED_MESSAGE';
 
 const INITIAL_STATE = {
   messages: [
@@ -12,28 +14,51 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action){
   switch(action.type) {
     case POST_MESSAGE:
-      const newMessage = msg.createMessage(action.text);
-      return {
-        ...state,
-        messages: state.messages.concat([newMessage])
-      };
-    case STAR_MESSAGE:
-      return {
-        ...state,
-        messages: state.messages.map( 
-          (message) => transitionMessageStar(message,action.messageId)
-        )
-      };
+      return processPostMessage(state,action.text);
+    case STARRING_MESSAGE:
+      return processStarringMessage(state,action.messageId);
+    case STARRED_MESSAGE:
+      return processStarredMessage(state,action.messageId);
     default: 
       return state;
   }
 }
 
-function transitionMessageStar(message,targetId){
-  if( msg.getMessageId(message) !== targetId ){
+function processPostMessage(state,messageText){
+  const newMessage = msg.createMessage(messageText);
+  return {
+    ...state,
+    messages: state.messages.concat([newMessage])
+  };
+}
+
+function processStarringMessage(state,messageId){
+  function markTargetMessageAsStarring(message){
+    return updateMessage(message,messageId,msg.startStarring);
+  }
+
+  return {
+    ...state,
+    messages: state.messages.map(markTargetMessageAsStarring)
+  };
+}
+
+function processStarredMessage(state,messageId){
+  function markTargetMessageAsStarred(message){
+    return updateMessage(message,messageId,msg.completeStarring);
+  }
+
+  return {
+    ...state,
+    messages: state.messages.map(markTargetMessageAsStarred)
+  };
+}
+
+function updateMessage(message,targetMessageId,updater){
+  if( msg.getMessageId(message) !== targetMessageId ){
     return message;
   }
-  return msg.starMessage(message);
+  return updater(message);
 }
 
 export function postMessage(text){
@@ -43,9 +68,18 @@ export function postMessage(text){
   };
 }
 
-export function starMessage(messageId){
-  return {
-    type: STAR_MESSAGE,
-    messageId: messageId
+export function starMessage(messageId,{backendServer=_backendServer}={}){
+  return function(dispatch){
+    dispatch({
+      type: STARRING_MESSAGE,
+      messageId: messageId
+    });
+    return backendServer.starMessage(messageId)
+    .then(function () {
+      dispatch({
+        type: STARRED_MESSAGE,
+        messageId: messageId
+      });
+    });
   };
 }

@@ -3,11 +3,10 @@ import classnames from 'classnames';
 import {getMessageText,getMessageStarState} from './message';
 
 export default function ChannelMessage({message,onStarClicked}){
-  const isStarred = 'starred' === getMessageStarState(message);
 
   const starClassNames = classnames(
     "channel-history__message-star",
-    {"-starred": isStarred }
+    starCssModifierForMessage(message)
   );
 
   return (
@@ -23,4 +22,15 @@ export default function ChannelMessage({message,onStarClicked}){
       </span>
     </div>
   );
+}
+
+function starCssModifierForMessage(message){
+  switch( getMessageStarState(message) ){
+    case 'starring': 
+      return '-starring';
+    case 'starred': 
+      return '-starred';
+    default:
+      return null;
+  }
 }

@@ -44,16 +44,31 @@ ul {
   margin-bottom: 10px
 }
 
+.channel-history__message-text {
+  margin-right: 5px;
+}
+
 .channel-history__message-star {
-  margin-left: 5px;
   color: rgb(230, 230, 230);
   cursor: pointer;
+  display: inline-block;
 }
 .channel-history__message-star:hover {
   color: rgb(160, 160, 160);
 }
+.channel-history__message-star.-starring {
+  color: rgb(160, 160, 160);
+  animation: throb 500ms infinite ease-in-out;
+}
 .channel-history__message-star.-starred {
   color: rgb(255, 197, 66);
+}
+.channel-history__message-star.-starred:hover {
+  color: rgb(189, 147, 52);
+}
+.channel-history__message-star.-unstarring {
+  color: rgb(255, 197, 66);
+  animation: throb 500ms infinite ease-in-out;
 }
 
 .compose-message {
@@ -65,4 +80,25 @@ ul {
 .compose-message__input {
   flex-grow: 1;
   margin-right: 5px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes throb {
+  0% {
+    transform: scale(1.0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.0);
+  }
 }
