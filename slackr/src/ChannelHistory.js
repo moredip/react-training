@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 function mapStateToProps(state){
   return {
-    messages: state.channel.messages
+    messages: state.messages
   };
 }
 

@@ -1,7 +1,15 @@
-import {combineReducers} from 'redux';
+const INITIAL_STATE = {
+  messages: []
+};
 
-import channel from './ducks/channel';
-
-export default combineReducers({ 
-  channel
-});
+export default function reducer(state = INITIAL_STATE, action){
+  switch(action.type) {
+    case 'POST_MESSAGE':
+      return {
+        ...state,
+        messages: state.messages.concat([action.message])
+      };
+    default: 
+      return state;
+  }
+}
