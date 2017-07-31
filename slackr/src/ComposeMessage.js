@@ -4,9 +4,24 @@ import {connect} from 'react-redux';
 import {postMessage} from './ducks/channel';
 
 const mapStateToProps = undefined;
+
 const mapDispatchToProps = {
   onMessage: postMessage
 };
+
+// ^ THIS IS A SHORTHAND FOR:
+//
+//function mapDispatchToProps(dispatch){
+  //const callbackProps = {
+    //onMessage(message){
+      //const action = postMessage(message);
+      //return dispatch(action);
+    //}
+  //};
+  //return callbackProps;
+//}
+
+
 
 export class ComposeMessage extends Component {
   constructor(props){
