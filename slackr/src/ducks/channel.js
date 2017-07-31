@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   messages: []
 };
 
-export default function reducer(state = INITIAL_STATE, action){
+export default function reducer(state = INITIAL_STATE, action = {}){
   switch(action.type) {
     case POST_MESSAGE:
       return {

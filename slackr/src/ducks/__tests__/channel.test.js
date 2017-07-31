@@ -3,8 +3,8 @@ import channelReducer, * as channelActions from '../channel';
 
 describe('channel duck', () => {
   it('starts off with an empty list of messages', () => {
-    const store = createStore(channelReducer);
-    expect(store.getState()).toHaveProperty('messages',[]);
+    const initialState = channelReducer();
+    expect(initialState).toHaveProperty('messages',[]);
   });
 
   it('accumulates messages', () => {
@@ -25,6 +25,33 @@ describe('channel duck', () => {
       'my first message',
       'another message'
     ]);
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  it('starts off with an empty list of messages [using store]', () => {
+    const store = createStore(channelReducer);
+    expect(store.getState()).toHaveProperty('messages',[]);
   });
 
   it('accumulates messages [using store]', () => {
