@@ -20,20 +20,25 @@ export default function reducer(state = INITIAL_STATE, action){
     case STAR_MESSAGE:
       return {
         ...state,
-        messages: state.messages.map( 
-          (message) => transitionMessageStar(message,action.messageId)
-        )
+        messages: starMessageWithId(state.messages,action.messageId)
       };
     default: 
       return state;
   }
 }
 
-function transitionMessageStar(message,targetId){
-  if( msg.getMessageId(message) !== targetId ){
+function starMessageWithId(messages,messageId){
+  return messages.map( 
+    (message) => starMessageIfMatchesId(message,messageId)
+  )
+}
+
+function starMessageIfMatchesId(message,targetId){
+  if( msg.matchesId(message,targetId) ){
+    return msg.starMessage(message);
+  }else{
     return message;
   }
-  return msg.starMessage(message);
 }
 
 export function postMessage(text){

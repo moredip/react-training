@@ -12,6 +12,10 @@ export function getMessageId(message){
   return message.id;
 }
 
+export function matchesId(message,targetId){
+  return getMessageId(message) === targetId;
+}
+
 export function getMessageText(message){
   return message.text;
 }

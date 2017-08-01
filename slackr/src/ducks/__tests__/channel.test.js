@@ -63,17 +63,22 @@ describe('channel duck', () => {
         channelActions.postMessage('a message')
       );
 
-      const ourMessage = store.getState().messages[0];
-
-      expect(getMessageStarState(ourMessage)).toBe('unstarred');
-
       store.dispatch(
-        channelActions.starMessage(getMessageId(ourMessage))
+        channelActions.postMessage('another message')
       );
 
-      const ourMessageAfterStarring = store.getState().messages[0];
+      const messageToStar = store.getState().messages[0];
 
-      expect(getMessageStarState(ourMessageAfterStarring)).toBe('starred');
+      expect(getMessageStarState(messageToStar)).toBe('unstarred');
+
+      store.dispatch(
+        channelActions.starMessage(getMessageId(messageToStar))
+      );
+
+      const messagesAfterwards = store.getState().messages;
+
+      expect(getMessageStarState(messagesAfterwards[0])).toBe('starred');
+      expect(getMessageStarState(messagesAfterwards[1])).toBe('unstarred');
     });
 
   });
