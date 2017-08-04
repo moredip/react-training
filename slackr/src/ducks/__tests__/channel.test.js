@@ -77,6 +77,28 @@ describe('channel duck', () => {
         expect(getMessageStarState(ourMessageAfterStarringSucceeds)).toBe('starred');
       });
     });
+
+    it('updates a message as UNSTARRED when an async starring operation fails', () => {
+      const fakeBackend = {
+        starMessage(){ return Promise.reject(); }
+      };
+
+      store.dispatch(
+        channelActions.postMessage('a message')
+      );
+      const ourMessage = store.getState().messages[0];
+
+      const asyncDispatch = store.dispatch(
+        channelActions.starMessage(getMessageId(ourMessage),{backendServer:fakeBackend})
+      );
+
+      return asyncDispatch
+        .catch(function(){})
+        .then(function () {
+        const ourMessageAfterDispatch = store.getState().messages[0];
+        expect(getMessageStarState(ourMessageAfterDispatch)).toBe('unstarred');
+      });
+    });
   });
 });
 

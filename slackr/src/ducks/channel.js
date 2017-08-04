@@ -4,6 +4,7 @@ import * as _backendServer from '../backendServer';
 const POST_MESSAGE = 'slackr/channel/POST_MESSAGE';
 const STARRING_MESSAGE = 'slackr/channel/STARRING_MESSAGE';
 const STARRED_MESSAGE = 'slackr/channel/STARRED_MESSAGE';
+const STARRING_MESSAGE_FAILED = 'slackr/channel/STARRING_MESSAGE_FAILED';
 
 const INITIAL_STATE = {
   messages: [
@@ -19,6 +20,8 @@ export default function reducer(state = INITIAL_STATE, action){
       return processStarringMessage(state,action.messageId);
     case STARRED_MESSAGE:
       return processStarredMessage(state,action.messageId);
+    case STARRING_MESSAGE_FAILED:
+      return processStarringMessageFailed(state,action.messageId);
     default: 
       return state;
   }
@@ -54,6 +57,17 @@ function processStarredMessage(state,messageId){
   };
 }
 
+function processStarringMessageFailed(state,messageId){
+  function markTargetMessageAsUnstarred(message){
+    return updateMessage(message,messageId,msg.unstar);
+  }
+
+  return {
+    ...state,
+    messages: state.messages.map(markTargetMessageAsUnstarred)
+  };
+}
+
 function updateMessage(message,targetMessageId,updater){
   if( msg.getMessageId(message) !== targetMessageId ){
     return message;
@@ -74,10 +88,17 @@ export function starMessage(messageId,{backendServer=_backendServer}={}){
       type: STARRING_MESSAGE,
       messageId: messageId
     });
+
     return backendServer.starMessage(messageId)
     .then(function () {
       dispatch({
         type: STARRED_MESSAGE,
+        messageId: messageId
+      });
+    })
+    .catch(function () {
+      dispatch({
+        type: STARRING_MESSAGE_FAILED,
         messageId: messageId
       });
     });

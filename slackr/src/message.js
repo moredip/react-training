@@ -1,6 +1,5 @@
 const uuid = require('uuid/v4');
 
-
 export function createMessage(text){
   const id = uuid();
   const starState = 'unstarred';
@@ -27,6 +26,11 @@ export function completeStarring(message){
 export function startStarring(message){
   return changeStarState(message,'starring');
 }
+
+export function unstar(message){
+  return changeStarState(message,'unstarred');
+}
+
 
 function changeStarState(message,newState){
   return Object.assign(
