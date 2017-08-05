@@ -14,8 +14,8 @@ export default class App extends React.Component {
   }
 
   render(){
-    const greetings = this.state.greetings.map(function (greeting){
-      return <Salutation greeting={greeting}/>;
+    const greetings = this.state.greetings.map(function (greeting,ix){
+      return <Salutation key={ix} greeting={greeting}/>;
     });
 
     return (
