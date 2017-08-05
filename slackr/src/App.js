@@ -26,10 +26,6 @@ export default class App extends Component {
   handleNewMessage(newMessage){
     this.setState( (prevState)=> addMessageToState(prevState,newMessage) );
   }
-
-  componentWillUpdate(nextProps, nextState){
-    console.log('APP STATE', nextState);
-  }
 }
 
 function addMessageToState(state,newMessage){
