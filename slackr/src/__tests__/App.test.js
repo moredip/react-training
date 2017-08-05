@@ -9,7 +9,6 @@ describe('App', function () {
   it('updates history with new messages as they are composed', function () {
     const component = shallow(<App/>);
     const composeMessage = component.find('ComposeMessage');
-    const channelHistory = component.find('ChannelHistory');
 
     // need to "re-find" ChannelHistory each time
     expect(component.find('ChannelHistory')).toHaveProp('messages',[]);
