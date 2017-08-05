@@ -4,12 +4,9 @@ import {connect} from 'react-redux';
 const mapStateToProps = undefined;
 
 function mapDispatchToProps(dispatch){
+
   function dispatchPostMessageAction(message){
-    const postMessageAction = {
-      type: 'POST_MESSAGE',
-      message: message
-    };
-    dispatch(postMessageAction);
+    dispatch(postMessageAction(message));
   }
 
   const callbackProps = {
@@ -17,6 +14,13 @@ function mapDispatchToProps(dispatch){
   };
 
   return callbackProps;
+}
+
+function postMessageAction(message){
+  return {
+    type: 'POST_MESSAGE',
+    message: message
+  };
 }
 
 class ComposeMessage extends Component {
