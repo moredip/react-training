@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import ChannelMessage from './ChannelMessage';
 import * as msg from './message';
 
 function mapStateToProps(state){
@@ -26,7 +27,7 @@ function renderMessagesSection(messages){
   }
 
   const messageEls = messages.map( function(message,ix){
-    return <p key={ix} className="channel-history__message">{msg.getText(message)}</p>;
+    return <ChannelMessage key={ix} message={message}/>;
   });
 
   return (
