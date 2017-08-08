@@ -11,7 +11,7 @@ export default function reducer(state = INITIAL_STATE, action = {}){
         ...state,
         messages: state.messages.concat([action.message])
       };
-    default: 
+    default:
       return state;
   }
 }
@@ -20,5 +20,12 @@ export function postMessage(message){
   return {
     type: POST_MESSAGE,
     message: message
+  };
+}
+
+export function deleteMessageAtIndex(index){
+  // TODO: implement me
+  return {
+    type: 'TODO'
   };
 }
