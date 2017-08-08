@@ -1,3 +1,5 @@
+import * as msg from '../message';
+
 const POST_MESSAGE = 'slackr/channel/POST_MESSAGE';
 const DELETE_MESSAGE = 'slackr/channel/DELETE_MESSAGE';
 
@@ -8,9 +10,10 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action = {}){
   switch(action.type) {
     case POST_MESSAGE:
+      const newMessage = msg.createMessage(action.text);
       return {
         ...state,
-        messages: state.messages.concat([action.message])
+        messages: state.messages.concat([newMessage])
       };
     case DELETE_MESSAGE:
       return {
@@ -22,10 +25,10 @@ export default function reducer(state = INITIAL_STATE, action = {}){
   }
 }
 
-export function postMessage(message){
+export function postMessage(text){
   return {
     type: POST_MESSAGE,
-    message: message
+    text: text
   };
 }
 
