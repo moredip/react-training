@@ -16,10 +16,9 @@ export default function reducer(state = INITIAL_STATE, action = {}){
         messages: state.messages.concat([newMessage])
       };
     case DELETE_MESSAGE:
-      const targetId = action.id;
       return {
         ...state,
-        messages: state.messages.filter((m)=> !msg.hasId(m,targetId))
+        messages: state.messages.filter((m)=> !msg.hasId(m,action.targetMessageId))
       };
     default:
       return state;
@@ -33,10 +32,9 @@ export function postMessage(text){
   };
 }
 
-export function deleteMessage(targetMessage){
-  const id = msg.getId(targetMessage);
+export function deleteMessage(targetMessageId){
   return {
     type: DELETE_MESSAGE,
-    id: id
+    targetMessageId: targetMessageId
   };
 }

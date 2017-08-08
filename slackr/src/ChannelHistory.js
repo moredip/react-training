@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import ChannelMessage from './ChannelMessage';
-import * as msg from './message';
 
 function mapStateToProps(state){
   return {

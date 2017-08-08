@@ -38,10 +38,20 @@ ul {
   margin-bottom: 20px;
 }
 
-.channel-history__message {
+.channel-message {
   background-color: white;
   padding: 5px;
   margin-bottom: 10px
+}
+
+.channel-message__delete {
+  float: right;
+  margin-right: 5px;
+  color: rgb(160, 160, 160);
+  cursor: pointer;
+}
+.channel-message__delete:hover {
+  color: rgb(239, 45, 45);
 }
 
 .compose-message {

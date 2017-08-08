@@ -48,7 +48,7 @@ describe('channel duck', () => {
 
     // WHEN
     store.dispatch(
-      channelActions.deleteMessage(messageToDelete)
+      channelActions.deleteMessage(msg.getId(messageToDelete))
     );
 
 
