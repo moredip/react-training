@@ -74,4 +74,31 @@ describe('channel duck', () => {
       'the next message'
     ]);
   });
+
+  it('deletes a message at a specified index', () => {
+    // GIVEN
+    const store = createStore(channelReducer);
+    store.dispatch(
+      channelActions.postMessage('message the first')
+    );
+    store.dispatch(
+      channelActions.postMessage('message the second')
+    );
+    store.dispatch(
+      channelActions.postMessage('message the third')
+    );
+
+
+    // WHEN
+    store.dispatch(
+      channelActions.deleteMessageAtIndex(1)
+    );
+
+
+    // THEN
+    expect(store.getState()).toHaveProperty('messages',[
+      'message the first',
+      'message the third'
+    ]);
+  });
 });
