@@ -15,3 +15,7 @@ export function getId(message){
   return message.uid;
 }
 
+export function hasId(message,id){
+  return id === getId(message);
+}
+

@@ -43,10 +43,12 @@ describe('channel duck', () => {
       channelActions.postMessage('message the third')
     );
 
+    const messageToDelete = store.getState().messages[1];
+
 
     // WHEN
     store.dispatch(
-      channelActions.deleteMessageAtIndex(1)
+      channelActions.deleteMessage(messageToDelete)
     );
 
 
