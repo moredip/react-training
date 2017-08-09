@@ -3,12 +3,17 @@ import uuid from 'uuid/v4';
 export function createMessage(text,uid=uuid()){
   return {
     text:text,
-    uid:uid
+    uid:uid,
+    state: 'normal'
   };
 }
 
 export function getText(message){
   return message.text;
+}
+
+export function getState(message){
+  return message.state;
 }
 
 export function getId(message){
@@ -19,3 +24,17 @@ export function hasId(message,id){
   return id === getId(message);
 }
 
+export function transitionToDeleting(message){
+  return transitionToState(message,'deleting');
+}
+
+export function transitionToDeleted(message){
+  return transitionToState(message,'deleted');
+}
+
+function transitionToState(message,state){
+  return {
+    ...message,
+    state: state
+  };
+}

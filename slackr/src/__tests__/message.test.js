@@ -15,5 +15,26 @@ describe('message', () => {
     expect(msg.hasId(message,'not-the-right-id')).toEqual(false);
     expect(msg.hasId(message,id)).toEqual(true);
   });
-  
+
+  describe('state', () => {
+    it('starts off in a normal state', () => {
+      const message = msg.createMessage('blah');
+      expect(msg.getState(message))
+        .toEqual('normal');
+    });
+
+    it('can transition to deleting', () => {
+      const message = msg.createMessage('blah')
+      const deletingMessage = msg.transitionToDeleting(message);
+      expect(msg.getState(deletingMessage))
+        .toEqual('deleting');
+    });
+
+    it('can transition to deleted', () => {
+      const message = msg.createMessage('blah')
+      const deletedMessage = msg.transitionToDeleted(message);
+      expect(msg.getState(deletedMessage))
+        .toEqual('deleted');
+    });
+  });
 });
