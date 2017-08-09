@@ -35,6 +35,25 @@ describe('App', function () {
     ]);
   });
 
+  test('deleting a message deletes the message', function () {
+    inputIntoComposeMessage('this is the first message');
+    submitComposedMessage();
+
+    inputIntoComposeMessage('this is the second message');
+    submitComposedMessage();
+
+    inputIntoComposeMessage('this is the third message');
+    submitComposedMessage();
+
+    deleteMessageAt(1);
+
+    const messages = messagesInChannelHistory();
+    expect(messages).toEqual([
+      'this is the first message',
+      'this is the third message'
+    ]);
+  });
+
   function inputIntoComposeMessage(text){
     app
       .find('.compose-message__input')
@@ -51,5 +70,12 @@ describe('App', function () {
     return app
       .find('.channel-history__message-list .channel-message__text')
       .map( (message)=> message.text() );
+  }
+
+  function deleteMessageAt(ix){
+    return app
+      .find('.channel-message__delete')
+      .at(ix)
+      .simulate('click');
   }
 });

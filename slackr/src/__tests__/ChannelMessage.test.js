@@ -18,7 +18,7 @@ describe('ChannelMessage', () => {
 
     component.find('.channel-message__delete').simulate('click');
 
-    expect(spyHandler).toHaveBeenCalledWith(msg.getId(message));
+    expect(spyHandler).toHaveBeenCalledWith();
   });
 });
 

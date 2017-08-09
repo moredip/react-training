@@ -8,13 +8,9 @@ export default function ChannelMessage({message,onDelete}){
       <span className="channel-message__text">
         {msg.getText(message)}
       </span>
-      <span onClick={handleDeleteClicked} className="channel-message__delete">
+      <span onClick={onDelete} className="channel-message__delete">
         x
       </span>
     </div>
   );
-
-  function handleDeleteClicked(){
-    onDelete(msg.getId(message));
-  }
 }
