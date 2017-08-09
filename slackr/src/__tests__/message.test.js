@@ -29,12 +29,5 @@ describe('message', () => {
       expect(msg.getState(deletingMessage))
         .toEqual('deleting');
     });
-
-    it('can transition to deleted', () => {
-      const message = msg.createMessage('blah')
-      const deletedMessage = msg.transitionToDeleted(message);
-      expect(msg.getState(deletedMessage))
-        .toEqual('deleted');
-    });
   });
 });

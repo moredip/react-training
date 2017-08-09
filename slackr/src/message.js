@@ -28,10 +28,6 @@ export function transitionToDeleting(message){
   return transitionToState(message,'deleting');
 }
 
-export function transitionToDeleted(message){
-  return transitionToState(message,'deleted');
-}
-
 function transitionToState(message,state){
   return {
     ...message,

@@ -18,10 +18,18 @@ export default function reducer(state = INITIAL_STATE, action = {}){
     case DELETE_MESSAGE:
       return {
         ...state,
-        messages: state.messages.filter((m)=> !msg.hasId(m,action.targetMessageId))
+        messages: state.messages.map((m)=> transformTargetMessage(m,action.targetMessageId,msg.transitionToDeleting))
       };
     default:
       return state;
+  }
+}
+
+function transformTargetMessage(message,targetId,transformer){
+  if( msg.hasId(message,targetId) ){
+    return transformer(message);
+  }else{
+    return message;
   }
 }
 

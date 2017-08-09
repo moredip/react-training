@@ -35,7 +35,7 @@ describe('App', function () {
     ]);
   });
 
-  test('deleting a message deletes the message', function () {
+  xtest('deleting a message deletes the message', function () {
     inputIntoComposeMessage('this is the first message');
     submitComposedMessage();
 

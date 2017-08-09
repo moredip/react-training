@@ -43,23 +43,28 @@ describe('channel duck', () => {
       channelActions.postMessage('message the third')
     );
 
-    const messageToDelete = store.getState().messages[1];
+    const targetMessage = store.getState().messages[1];
 
 
     // WHEN
     store.dispatch(
-      channelActions.deleteMessage(msg.getId(messageToDelete))
+      channelActions.deleteMessage(msg.getId(targetMessage))
     );
 
 
     // THEN
-    expect(extractMessageTextFromStore(store)).toEqual([
-      'message the first',
-      'message the third'
+    expect(extractMessageStateFromStore(store)).toEqual([
+      'normal',
+      'deleting',
+      'normal'
     ]);
   });
 });
 
 function extractMessageTextFromStore(store){
   return store.getState().messages.map(msg.getText);
+}
+
+function extractMessageStateFromStore(store){
+  return store.getState().messages.map(msg.getState);
 }
