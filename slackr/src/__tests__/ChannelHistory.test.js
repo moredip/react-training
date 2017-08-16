@@ -27,16 +27,4 @@ describe('ChannelHistory', function () {
     expect(component.find('ChannelMessage'))
       .not.toBePresent();
   });
-
-  it('bubbles message deletion up to provided handler', () => {
-    const spyDeletionHandler = jest.fn();
-    const messages = ['msg 1', 'msg 2', 'msg 3'];
-    const component = shallow(<ChannelHistory onMessageDelete={spyDeletionHandler} messages={messages}/>);
-
-    const secondMessageComponent = component.find('ChannelMessage').at(1);
-    expect(secondMessageComponent).toBePresent();
-    secondMessageComponent.prop('onDelete')();
-
-    expect(spyDeletionHandler).toHaveBeenCalledWith(1);
-  });
 });
