@@ -1,9 +1,54 @@
 import {createStore} from 'redux';
 import channelReducer, * as channelActions from '../channel';
 
-import * as msg from '../../message';
-
 describe('channel duck', () => {
+  it('starts off with an empty list of messages', () => {
+    const initialState = channelReducer();
+    expect(initialState).toHaveProperty('messages',[]);
+  });
+
+  it('accumulates messages', () => {
+    const stateAfterFirstMessage = channelReducer(
+      undefined,
+      channelActions.postMessage('my first message')
+    );
+
+    const stateAfterSecondMessage = channelReducer(
+      stateAfterFirstMessage,
+      channelActions.postMessage('another message')
+    );
+
+    expect(stateAfterFirstMessage).toHaveProperty('messages',[
+      'my first message'
+    ]);
+    expect(stateAfterSecondMessage).toHaveProperty('messages',[
+      'my first message',
+      'another message'
+    ]);
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   it('starts off with an empty list of messages [using store]', () => {
     const store = createStore(channelReducer);
     expect(store.getState()).toHaveProperty('messages',[]);
@@ -16,7 +61,7 @@ describe('channel duck', () => {
       channelActions.postMessage('my first message')
     );
 
-    expect(extractMessageTextFromStore(store)).toEqual([
+    expect(store.getState()).toHaveProperty('messages',[
       'my first message'
     ]);
 
@@ -24,7 +69,7 @@ describe('channel duck', () => {
       channelActions.postMessage('the next message')
     );
 
-    expect(extractMessageTextFromStore(store)).toEqual([
+    expect(store.getState()).toHaveProperty('messages',[
       'my first message',
       'the next message'
     ]);
@@ -43,23 +88,17 @@ describe('channel duck', () => {
       channelActions.postMessage('message the third')
     );
 
-    const messageToDelete = store.getState().messages[1];
-
 
     // WHEN
     store.dispatch(
-      channelActions.deleteMessage(msg.getId(messageToDelete))
+      channelActions.deleteMessageAtIndex(1)
     );
 
 
     // THEN
-    expect(extractMessageTextFromStore(store)).toEqual([
+    expect(store.getState()).toHaveProperty('messages',[
       'message the first',
       'message the third'
     ]);
   });
 });
-
-function extractMessageTextFromStore(store){
-  return store.getState().messages.map(msg.getText);
-}

@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import ChannelMessage from './ChannelMessage';
-import * as msg from './message';
-import {deleteMessage} from './ducks/channel';
+import {deleteMessageAtIndex} from './ducks/channel';
 
 function mapStateToProps(state){
   return {
@@ -12,7 +11,7 @@ function mapStateToProps(state){
 }
 
 const mapDispatchToProps = {
-  onMessageDelete: deleteMessage
+  onMessageDelete: deleteMessageAtIndex
 };
 
 export function ChannelHistory(props){
@@ -30,7 +29,7 @@ export function ChannelHistory(props){
 
     const messageEls = messages.map( function(message,ix){
       function handleDelete(){
-        props.onMessageDelete(msg.getId(message));
+        props.onMessageDelete(ix);
       }
       return <ChannelMessage onDelete={handleDelete} key={ix} message={message}/>;
     });

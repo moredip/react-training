@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import {ChannelHistory} from '../ChannelHistory';
-import * as msg from '../message';
 
 describe('ChannelHistory', function () {
   it('has a Messages title', function () {
@@ -11,7 +10,7 @@ describe('ChannelHistory', function () {
   });
 
   it('shows the message history', function () {
-    const messages = ['first message','second message'].map(msg.createMessage);
+    const messages = ['first message','second message'];
 
     const component = shallow(<ChannelHistory messages={messages}/>);
 
@@ -31,13 +30,13 @@ describe('ChannelHistory', function () {
 
   it('bubbles message deletion up to provided handler', () => {
     const spyDeletionHandler = jest.fn();
-    const messages = ['msg 1','msg 2', 'msg 3'].map(msg.createMessage);
+    const messages = ['msg 1', 'msg 2', 'msg 3'];
     const component = shallow(<ChannelHistory onMessageDelete={spyDeletionHandler} messages={messages}/>);
 
     const secondMessageComponent = component.find('ChannelMessage').at(1);
     expect(secondMessageComponent).toBePresent();
     secondMessageComponent.prop('onDelete')();
 
-    expect(spyDeletionHandler).toHaveBeenCalledWith(msg.getId(messages[1]));
+    expect(spyDeletionHandler).toHaveBeenCalledWith(1);
   });
 });
