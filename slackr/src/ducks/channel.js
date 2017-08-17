@@ -53,6 +53,7 @@ export function deleteMessage(targetMessageId,{backendServer=_backendServer}={})
       type: DELETING_MESSAGE,
       targetMessageId
     });
+
     return backendServer.deleteMessage(targetMessageId)
     .then(function () {
       dispatch({

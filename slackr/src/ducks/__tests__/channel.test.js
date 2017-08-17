@@ -1,17 +1,21 @@
-import {createStore} from 'redux';
-import channelReducer, * as channelActions from '../channel';
+import {createStore,applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
+import channelReducer, * as channelActions from '../channel';
 import * as msg from '../../message';
 
 describe('channel duck', () => {
+  let store = undefined;
+
+  beforeEach( () => {
+    store = createConfiguredStore();
+  });
+  
   it('starts off with an empty list of messages [using store]', () => {
-    const store = createStore(channelReducer);
     expect(store.getState()).toHaveProperty('messages',[]);
   });
 
   it('accumulates messages [using store]', () => {
-    const store = createStore(channelReducer);
-
     store.dispatch(
       channelActions.postMessage('my first message')
     );
@@ -30,36 +34,72 @@ describe('channel duck', () => {
     ]);
   });
 
-  it('deletes a message at a specified index', () => {
-    // GIVEN
-    const store = createStore(channelReducer);
-    store.dispatch(
-      channelActions.postMessage('message the first')
-    );
-    store.dispatch(
-      channelActions.postMessage('message the second')
-    );
-    store.dispatch(
-      channelActions.postMessage('message the third')
-    );
+  describe('message deletion', () => {
+    it('triggers a deletion operation in the backend', () => {
+      const fakeBackend = {
+        deleteMessage: jest.fn()
+      };
+      fakeBackend.deleteMessage.mockReturnValue(Promise.resolve(true));
 
-    const targetMessage = store.getState().messages[1];
+      store.dispatch(
+        channelActions.deleteMessage('some-message-id',{backendServer:fakeBackend})
+      );
 
+      expect(fakeBackend.deleteMessage).toHaveBeenCalled();
+    });
 
-    // WHEN
-    store.dispatch(
-      channelActions.deleteMessage(msg.getId(targetMessage))
-    );
+    it('updates a message as DELETING when async deletion starts, then removes it entirely once the async operation succeeds', () => {
+      const fakeBackend = {
+        deleteMessage(){ return Promise.resolve(true); }
+      };
+      
+      // GIVEN
+      store.dispatch(
+        channelActions.postMessage('message the first')
+      );
+      store.dispatch(
+        channelActions.postMessage('message the second')
+      );
+      store.dispatch(
+        channelActions.postMessage('message the third')
+      );
 
+      const targetMessage = store.getState().messages[1];
 
-    // THEN
-    expect(extractMessageStateFromStore(store)).toEqual([
-      'normal',
-      'deleting',
-      'normal'
-    ]);
+      // WHEN
+      const asyncDispatch = store.dispatch(
+        channelActions.deleteMessage(msg.getId(targetMessage),{backendServer:fakeBackend})
+      );
+
+      // THEN
+      expect(extractMessageStateFromStore(store)).toEqual([
+        'normal',
+        'deleting',
+        'normal'
+      ]);
+
+      expect(extractMessageTextFromStore(store)).toEqual([
+        'message the first',
+        'message the second',
+        'message the third'
+      ]);
+
+      return asyncDispatch.then(function () {
+        expect(extractMessageTextFromStore(store)).toEqual([
+        'message the first',
+        'message the third'
+        ]);
+      });
+    });
   });
 });
+
+function createConfiguredStore(){
+  return createStore(
+    channelReducer,
+    applyMiddleware(thunk)
+  );
+}
 
 function extractMessageTextFromStore(store){
   return store.getState().messages.map(msg.getText);
