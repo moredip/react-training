@@ -44,6 +44,11 @@ ul {
   margin-bottom: 10px
 }
 
+.channel-message.-deleting-state {
+  opacity: 0.3;
+  transition: opacity 0.5s ease-in-out;
+}
+
 .channel-message__delete {
   float: right;
   margin-right: 5px;
