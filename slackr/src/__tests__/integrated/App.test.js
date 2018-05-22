@@ -36,6 +36,19 @@ describe('App', function () {
     ]);
   });
 
+  test('submitting an empty message has no effect', function () {
+    inputIntoComposeMessage('this is the first message');
+    submitComposedMessage();
+
+    inputIntoComposeMessage('');
+    submitComposedMessage();
+
+    const messages = messagesInChannelHistory();
+    expect(messages).toEqual([
+      'this is the first message'
+    ]);
+  });
+
   function inputIntoComposeMessage(text){
     app
       .find('.compose-message__input')

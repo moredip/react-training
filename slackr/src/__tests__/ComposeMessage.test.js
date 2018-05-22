@@ -37,6 +37,15 @@ describe('ComposeMessage', function () {
     expect(spyHandler).toHaveBeenCalledWith('some text input');
   });
 
+  it('does not call handler when blank text is submitted', () => {
+    const spyHandler = jest.fn();
+    component = shallow( <ComposeMessage onMessage={spyHandler} /> );
+
+    simulateInputtingText('  ');
+    simulateSubmitting();
+    expect(spyHandler).not.toHaveBeenCalled();
+  });
+
   it('resets text input after submitted', function () {
     simulateInputtingText('some text input');
     simulateSubmitting();

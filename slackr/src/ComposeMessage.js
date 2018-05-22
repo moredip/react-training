@@ -38,6 +38,10 @@ export default class ComposeMessage extends Component {
   handleSubmit(event){
     event.preventDefault();
 
+    if( isBlank(this.state.message) ){
+      return;
+    }
+
     if( this.props.onMessage ){
       this.props.onMessage(this.state.message);
     }
@@ -47,3 +51,7 @@ export default class ComposeMessage extends Component {
     });
   }
 }
+
+function isBlank(string){
+  return string.trim() === "";
+};
