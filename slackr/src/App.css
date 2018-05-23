@@ -33,24 +33,36 @@ ul {
 }
 
 .channel-history__title {
-  font-size: 22px;
+  font-size: 22pt;
   border-bottom: 1px solid gray;
   margin-bottom: 20px;
 }
 
 .channel-history__message {
   background-color: white;
-  padding: 5px;
+  font-size: 16pt;
+  padding: 8px 16px;
   margin-bottom: 10px
 }
 
 .compose-message {
   display: flex;
-  padding: 10px;
+  height: 40px;
+  padding: 16px;
   background-color: gray;
 }
 
 .compose-message__input {
   flex-grow: 1;
-  margin-right: 5px;
+  margin-right: 16px;
+  font-size: 16pt;
+  padding-left: 5px;
+}
+
+.compose-message__submit {
+  padding: 0 20px;
+  font-size: 16pt;
+  color: rgb(240,240,240);
+  background-color: rgb(140,140,140);
+  border: 2px solid rgb(240,240,240);
 }
